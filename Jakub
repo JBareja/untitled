@@ -4,7 +4,7 @@
 	    USE projekt;
 
    	    CREATE TABLE pracownicy (
-	    id_pracownika INT(5) auto_increment,
+	    id_pracownika INT(5) NOT NULL auto_increment,
 	    imie VARCHAR(15) NOT NULL,
 	    nazwisko VARCHAR(20) NOT NULL,
 	    poczta VARCHAR(15) NOT NULL,
@@ -14,7 +14,7 @@
 	    email varchar(20) not null,
 	    login varchar(20) not null,
 	    haslo varchar(20) not null,
-    PRIMARY KEY(id_pracownika))CHARSET=utf8;
+            PRIMARY KEY(id_pracownika))CHARSET=utf8;
     
     
     
@@ -42,6 +42,12 @@
 	 id_kategorii int(5) auto_increment,
 	 nazwa_kategorii VARCHAR(15) NOT NULL,
 	 PRIMARY KEY(id_kategorii))CHARSET=utf8;
+	 
+	 
+	 CREATE TABLE lacznik (
+	 id_pracownika INT(5) NOT NULL auto_increment,
+	 id_zadania INT(5) NOT NULL,
+	 PRIMARY KEY(id_pracownika , id_zadania))CHARSET=utf8;
 	
     
 	
@@ -72,7 +78,13 @@
         ADD INDEX idx_kategoria (id_kategorii),
 	ADD FOREIGN KEY (id_kategorii) references kategoria (id_kategorii) ON DELETE NO ACTION;
         
-	
+	ALTER TABLE lacznik
+        ADD INDEX idx_pracownika (id_pracownika),
+	ADD INDEX idx_zadania (id_zadania),
+	ADD FOREIGN KEY (id_pracownika) references pracownicy (id_pracownika) ON DELETE NO ACTION,
+	ADD FOREIGN KEY (id_zadania) references zadania (id_zadania) ON DELETE NO ACTION;
+        
+        
 	
 	
 	
