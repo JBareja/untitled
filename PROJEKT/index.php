@@ -42,6 +42,7 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
                                 {
                                     echo '<div style="color:red">'.$_SESSION['blad'].'</div>';
                                 }
+								unset($_SESSION['blad']);
                             ?>
                             </div>
                             <span class="button-checkbox">

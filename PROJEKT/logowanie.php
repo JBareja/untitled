@@ -11,23 +11,24 @@ require_once 'connect.php';
 try {
     $pdo = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $database . ';port=' . $port, $username, $password);
     
-    
-    
+	$emaile = $pdo->query('SELECT email FROM pracownicy');
+	foreach($emaile as $row1)
+	{
+    if($_POST['email']!=$row['email'])
+			{
+			$_SESSION['blad']="Niepoprawny email i/lub hasło";
+					header('Location: index.php');		
+			}
+    }
     $logowanie = $pdo->prepare('SELECT * FROM pracownicy WHERE email=:email');
     
         $logowanie->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
     
     $logowanie->execute();
-	    $rows = $logowanie->fetchAll();
-		
-    if($rows>1)
-	{
-	$_SESSION['blad']="Niepoprawny email i/lub hasło";
-            header('Location: index.php');	
-	}
-    
+
     foreach($logowanie as $row)
     {
+			
         if($row['haslo']==$_POST['haslo'])
         {
             
@@ -42,8 +43,8 @@ try {
             header('Location: index.php');
         }
         
-    }
     
+			}
     $logowanie->closeCursor();
     }
 catch (PDOException $e) {
