@@ -12,9 +12,10 @@
 	    kod_pocztowy int(5) default "00000" NOT NULL,
 	    telefon int(9) not null,
 	    email varchar(20) not null,
-	    login varchar(20) not null,
 	    haslo varchar(20) not null,
             PRIMARY KEY(id_pracownika))CHARSET=utf8;
+	    
+	    
     
     
     
